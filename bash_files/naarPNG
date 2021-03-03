@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+search_path=$1 #maakt een variabele van de opgegeven path
+for image in $1*.jpg; do # gaat langs elke file met de jpg extensie en doet het volgende:
+	convert "$image" "${image%.*}.png" #Conver de jpg images naar png images
+	convert "${image%.*}.png" -resize 128x128\> "${image%.*}.png" #pas de resolutie van de png images aan dat het niet groter dan 128 pixel is. Behouden hierbij zijn verhouding en als afbeelding al kliner is gebeurt er niets.
+done

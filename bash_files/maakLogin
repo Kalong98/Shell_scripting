@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+password_file=$1 #maakt een variabele van de opgegeven filename
+echo "Enter your name:"
+read user_name #vraagt gebruiker om naam
+if test -z $user_name; then #checkt of naam niet leeg is, als dit wel zo is word de naam van huidige gebruiker gebruikt
+	user_name=$(whoami)
+else
+	:
+fi
+
+password_pass=false #maakt een variabele aan als conditie voor de while loop
+while ! $password_pass; do #while loop voor zolang de password_pass false is
+	echo "Voer een wachtwoord in (min 8 karakters)"
+	read password1 #vraagt gebruiker om een wachtwoord in te vullen
+	if test ${#password1} -lt 8 ; then #checkt of de lengte van password minstens 8 is
+		echo "Wachtwoord is te kort" #geeft een melding als wachtwoord te kort is
+		continue
+	else
+		echo "Herhaal wachtwoord"
+		read password2 #vraagt gebruiker om wachtwoord te herhalen
+		if test "$password1" != "$password2"; then #checkt of beide wachtwoorden overeenkomen
+			echo "de wachtwoord komt niet overeen, probeer het opnieuw" #geeft een melding als wachtwoorden niet overeenkomen
+			continue
+		else
+			touch "$password_file.txt" #zorgt ervoor dat er een tekst bestand wordt aangemaakt met filename als dit nog niet zo is
+			echo $user_name > "$password_file.txt" #overwrite de bestaande file
+			echo $password1 | md5sum >> "$password_file.txt" #voegt de MD5-hash van wachtwoord aan het bestand toe
+			password_pass=true #maakt de conditie true zodat while loop eindigt
+		fi
+	fi
+done

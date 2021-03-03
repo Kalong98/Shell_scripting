@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+case $1 in
+*.py)
+python3 $1
+# case file met extension .py worden door python 3 uitgevoerd
+;;
+*.sh)
+bash $1
+# case file met extension .sh worden door bash uitgevoerd
+;;
+*.cc)
+# case file met extension .cc word met cat uitgeprint
+cat $1
+;;
+*)
+# case file met overige extensions zijn ongeldig
+echo "bestand type ongeldig"
+esac

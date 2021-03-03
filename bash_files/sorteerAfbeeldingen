@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+search_path=$1 #slaat opgegeven path op in variabele
+mkdir -p "$search_path/Afbeeldingen" #maakt directory aan in opgegeven path
+find $search_path -type f -name "*.jpg" -exec mv {} "$search_path/Afbeeldingen/" \; #zoekt in de opgegeven path naar jpg bestanden en verplaatst deze naar Afbeeldingen
+find $search_path -type f -name "*.png" -exec mv {} "$search_path/Afbeeldingen/" \; #zoekt in de opgegeven path naar png bestanden en verplaatst deze naar Afbeeldingen
+

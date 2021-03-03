@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+search_path=$1 #maakt van de opgegeven path een variabele
+mkdir -p "$search_path/Afbeeldingen" #maakt een directory aan in de opgegeven path
+for file in $search_path*.{jpg,png}; do #voor elke bestand in de opgegeven path met de extension .jpg en .png wordt het bestand verplaats naar Afbeeldingen
+	mv $file $search_path/Afbeeldingen/
+done

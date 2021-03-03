@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+echo "Vul je lengte in cm in:"
+read lengte # vraagt gebruiker om zijn lengte
+echo "Vul je gewicht in kg in:"
+read gewicht # vraagt gebruiker om zijn gewicht
+lengte_kw=$(($lengte*$lengte)) # berekent de kwadraat ingevulde lengte
+gewicht_omgerekend=$(($gewicht*10000)) # rekent het gewicht om voor de formule
+bmi_waarde=$((gewicht_omgerekend/$lengte_kw)) # berekent het bmi en slaat het op in de variabele
+echo "Je bmi waarde is: $bmi_waarde" # geeft de gebruiker zijn bmi waarde terug
+if (($bmi_waarde < 18)); then # checkt of de bmi_waarde voldoet aan de statementsen geeft op basis daarvan de juiste informatie terug
+	echo "Je gewicht is veel te laag"
+elif (($bmi_waarde >= 18 && $bmi_waarde <= 25)); then
+	echo "Je gewicht is gezond"
+elif (($bmi_waarde >= 25 && $bmi_waarde <= 30)); then
+        echo "Je gewicht is te hoog"
+else
+	echo "Je gewicht is veel te hoog (obesitas)"
+fi

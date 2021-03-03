@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+search_path=$1 #maakt variabele aan van opgegeven path
+commando=$2 #maakt een variabele van de meegegeven commando
+logfile=$3 #maakt een variabele van de meegegeven naam voor de logfile
+if test -e $search_path/"$logfile.txt"; #Kijkt of logfile met meegegeven naam al bestaat
+then #In het geval dat het al bestaat wordt de oude verwijderd en een nieuwe aangemaakt
+	rm $search_path/"$logfile.txt"
+	touch $search_path/"$logfile.txt"
+else #In het geval dat het niet bestaat wordt er aleen een nieuwe logfile aangemaakt
+	touch $search_path/"$logfile.txt"
+fi
+
+for file in $search_path*; do #ittereert door elk bestand in de meegegeven path
+	$commando $file #voert commando uit of de file
+	if test $? -eq 0 ; #checkt of de exit code van de commando gelijk is aan 0
+	then #indien exit code 0 is, legt in de logfile vast dat de commando succesvol was
+		echo "$commando succesfully used on $file" >> $search_path/"$logfile.txt"
+	else #indien exit code niet 0 is, legt in de logfile vast dat de commando niet succesvol was uitgevoerd
+		echo "$commando failed on $file" >> $search_path/"$logfile.txt"
+	fi
+done
